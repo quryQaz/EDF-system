@@ -9,6 +9,7 @@ type = 'tree',
 parts = {'id'}
 })
 
+
 users = box.schema.space.create('users')
 users:format({
 {name = 'id', type = 'unsigned'},
