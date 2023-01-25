@@ -1,0 +1,166 @@
+status = box.schema.space.create('status')
+status:format({
+{name = 'id', type = 'unsigned'},
+{name = 'ip', type = 'string'},
+{name = 'status', type = 'string'},
+})
+status:create_index('primary', {
+type = 'tree',
+parts = {'id'}
+})
+
+users = box.schema.space.create('users')
+users:format({
+{name = 'id', type = 'unsigned'},
+{name = 'ip', type = 'string'},
+{name = 'users', type = 'string'},
+{name = 'date', type = 'string'},
+})
+users:create_index('primary', {
+type = 'tree',
+parts = {'id'}
+})
+
+programs = box.schema.space.create('programs')
+programs:format({
+{name = 'id', type = 'unsigned'},
+{name = 'ip', type = 'string'},
+{name = 'programs', type = 'string'},
+{name = 'date', type = 'string'},
+})
+programs:create_index('primary', {
+type = 'tree',
+parts = {'id'}
+})
+
+errors = box.schema.space.create('errors')
+errors:format({
+{name = 'id', type = 'unsigned'},
+{name = 'ip', type = 'string'},
+{name = 'errors', type = 'string'},
+{name = 'date', type = 'string'},
+})
+errors:create_index('primary', {
+type = 'tree',
+parts = {'id'}
+})
+
+logs = box.schema.space.create('logs')
+logs:format({
+{name = 'id', type = 'unsigned'},
+{name = 'ip', type = 'string'},
+{name = 'logs', type = 'string'},
+{name = 'date', type = 'string'},
+})
+logs:create_index('primary', {
+type = 'tree',
+parts = {'id'}
+})
+
+registry = box.schema.space.create('registry')
+registry:format({
+{name = 'id', type = 'unsigned'},
+{name = 'ip', type = 'string'},
+{name = 'registry', type = 'string'},
+{name = 'date', type = 'string'},
+})
+registry:create_index('primary', {
+type = 'tree',
+parts = {'id'}
+})
+
+drivers = box.schema.space.create('drivers')
+drivers:format({
+{name = 'id', type = 'unsigned'},
+{name = 'ip', type = 'string'},
+{name = 'drivers', type = 'string'},
+{name = 'date', type = 'string'},
+})
+drivers:create_index('primary', {
+type = 'tree',
+parts = {'id'}
+})
+
+processes = box.schema.space.create('processes')
+processes:format({
+{name = 'id', type = 'unsigned'},
+{name = 'ip', type = 'string'},
+{name = 'processes', type = 'string'},
+{name = 'date', type = 'string'},
+})
+processes:create_index('primary', {
+type = 'tree',
+parts = {'id'}
+})
+
+box.space.status:create_index('ip', {
+         type = 'tree',
+         parts = {'ip'},
+         unique = false
+         })
+box.space.users:create_index('ip', {
+        type = 'tree',
+        parts = {'ip'},
+        unique = false
+        })
+box.space.programs:create_index('ip', {
+        type = 'tree',
+        parts = {'ip'},
+        unique = false
+        })
+box.space.errors:create_index('ip', {
+        type = 'tree',
+        parts = {'ip'},
+        unique = false
+        })
+box.space.logs:create_index('ip', {
+        type = 'tree',
+        parts = {'ip'},
+        unique = false
+        })
+box.space.registry:create_index('ip', {
+        type = 'tree',
+        parts = {'ip'},
+        unique = false
+        })
+box.space.drivers:create_index('ip', {
+        type = 'tree',
+        parts = {'ip'},
+        unique = false
+        })
+box.space.processes:create_index('ip', {
+        type = 'tree',
+        parts = {'ip'},
+        unique = false
+        })
+
+box.space.status.index.ip:drop()
+
+box.space.status.index.ip:drop()
+box.space.users.index.ip:drop()
+box.space.programs.index.ip:drop()
+box.space.errors.index.ip:drop()
+box.space.logs.index.ip:drop()
+box.space.registry.index.ip:drop()
+box.space.drivers.index.ip:drop()
+box.space.processes.index.ip:drop()
+
+box.space.status.index.ip.unique = false
+box.space.users.index.ip.unique = false
+box.space.programs.index.ip.unique = false
+box.space.errors.index.ip.unique = false
+box.space.logs.index.ip.unique = false
+box.space.registry.index.ip.unique = false
+box.space.drivers.index.ip.unique = false
+box.space.processes.index.ip.unique = false
+
+s:insert{1, '192.168.1.2', 'proc1 proc2 proc3', 'driver1 driver2 driver3', 'registry1 registry1 registry1', 'logs', 'no error', 'prog1 prog1prog1 ', 'user'}
+s:insert{4, '192.168.1.2', 'proc5435 proc2124 proc3345', 'driver13153 driver2643 driver3', 'registry1 registry146346 registry1', 'logs 1', 'no error', 'prog1 prog146534 prog1 ', 'user user2'}
+s:insert{6, '192.168.1.2', 'proc11256 proc2353 proc3123', 'driver1346 driver246 driver3', 'registry1325435 registry1 registry123523', 'logs 5', 'error', 'prog1 prog1 4346prog3431 ', 'user user24 user5 uesr4'}
+
+s:insert{5, '192.168.1.4', 'proc54 proc5434 proc543443', 'driver1 driver122 driver156', 'registry1 registry112 registry144', 'logs 5', 'no error', 'prog1 prog12 prog1 ', 'user'}
+s:insert{7, '192.168.1.4', 'proc54342 proc54342 proc543477', 'driver111 driver1 driver12', 'registry13 registry111 registry133', 'logs 54', 'error', 'prog1 prog12 prog1341 ', 'user user24 user5 uesr4'}
+
+status:insert{1, '192.168.1.2', 'active'}
+status:insert{2, '192.168.1.3', 'inactive'}
+status:insert{3, '192.168.1.4', 'active'}
